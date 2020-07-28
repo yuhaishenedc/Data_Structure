@@ -1,5 +1,7 @@
 package Tree;
 
+import java.util.Stack;
+
 public class BinarySearchTree {
     public static void main(String[] args) {
         MyBinarySearchTree test=new MyBinarySearchTree();
@@ -9,15 +11,17 @@ public class BinarySearchTree {
         test.insert(11);
         test.insert(6);
         test.insert(10);
-        System.out.println(test.findMax());
-        System.out.println(test.findMin());
         test.postOrder();
         System.out.println("");
-        System.out.println(test.contains(10));
-        test.remove(8);
-        test.postOrder();
+        test.postOrderIteration();
         System.out.println("");
         test.preOrder();
+        System.out.println("");
+        test.preOrderIteration();
+        System.out.println("");
+        test.inOrder();
+        System.out.println("");
+        test.inOrderIteration();
     }
 }
 
@@ -139,6 +143,37 @@ class MyBinarySearchTree{
         }
     }
 
+    public void postOrderIteration(){
+        postOrderIteration(root);
+    }
+
+    private void postOrderIteration(BinaryNode t){
+        if(t==null){
+            return;
+        }
+        Stack<BinaryNode> s=new Stack<>();
+        while(!s.isEmpty()||t!=null){
+            while(t!=null){
+                s.push(t);
+                if(t.left!=null){
+                    t=t.left;
+                }
+                else{
+                    t=t.right;
+                }
+            }
+            t=s.pop();
+            System.out.print(t.element+" ");
+            if(!s.isEmpty()&&t.equals(s.peek().left)){
+                t=s.peek().right;
+            }
+            else{
+                t=null;
+            }
+        }
+    }
+
+    //recursion version
     public void preOrder() { preOrder(root); }
 
     private void preOrder(BinaryNode t){
@@ -149,6 +184,60 @@ class MyBinarySearchTree{
         }
     }
 
+    //iteration version
+    public void preOrderIteration(){
+        preOrder(root);
+    }
+
+    private void preOrderIteration(BinaryNode t){
+        if(t==null){
+            return;
+        }
+        Stack<BinaryNode> s=new Stack<>();
+        s.push(t);
+        while(!s.isEmpty()){
+            BinaryNode temp=s.pop();
+            if(temp!=null){
+                System.out.print(temp.element+" ");
+                s.push(temp.right);
+                s.push(temp.left);
+            }
+        }
+
+    }
+
+    //recursion version
+    public void inOrder(){
+        inOrder(root);
+    }
+
+    private void inOrder(BinaryNode t){
+        if(t!=null){
+            inOrder(t.left);
+            System.out.print(t.element+" ");
+            inOrder(t.right);
+        }
+    }
+
+    public void inOrderIteration(){
+        inOrderIteration(root);
+    }
+
+    private void inOrderIteration(BinaryNode t){
+        if(t==null){
+            return;
+        }
+        Stack<BinaryNode> s=new Stack<>();
+        while(!s.isEmpty()||t!=null){
+            while(t!=null){
+                s.push(t);
+                t=t.left;
+            }
+            t=s.pop();
+            System.out.print(t.element+" ");
+            t=t.right;
+        }
+    }
 
 
 }
