@@ -1,1 +1,11 @@
-![picture](./image/data_structure.jpg)
+# 红黑树
+
+![picture](./image/Red_Black_Tree.png)
+
+红黑树是具有下列着色性质的二叉查找树：
+* 每一个节点或者着色为红色，或者着色为黑色
+* 根是黑色的
+* 如果一个节点是红色的，那么它的子节点必须是黑色的
+* 从一个节点到一个null指针的每一条路径必须包含相同数目的黑色节点
+
+着色法则的一个结论是，红黑树的高度最多是 ![picture](./image/Red_Black_Equation_1.gif)
